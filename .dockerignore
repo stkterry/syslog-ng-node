@@ -1,1 +1,5 @@
 **/logs
+syslog-ng
+Makefile
+README.md
+VERSION
