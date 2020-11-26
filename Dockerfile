@@ -19,7 +19,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.vcs-url=$VCS_URL \
     org.label-schema.version=$VERSION \
     org.label-schema.schema-version="1.0" \
-    org.label-schema.docker.cmd="docker run -d -p 514:514/udp -v /var/log/syslog-ng:/var/log/syslog-ng --name syslog-ng syslog-ng-node"
+    org.label-schema.docker.cmd="docker run -d -p 514:514/udp -v /var/log/syslog-ng:/var/log/syslog-ng --name syslog-ng stevenktdev/syslog-ng-node"
 
 RUN apk add --no-cache \
     glib \

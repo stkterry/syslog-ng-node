@@ -1,4 +1,4 @@
-## syslog-ng-node 
+# syslog-ng-node 
 
 syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point to build a Node/Express application around the syslog-ng logger.
 
@@ -6,7 +6,9 @@ syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point
   <img src="https://img.shields.io/docker/v/stevenktdev/syslog-ng-node">
   <img src="https://img.shields.io/docker/image-size/stevenktdev/syslog-ng-node">
   <img src="https://img.shields.io/github/repo-size/stkterry/syslog-ng-node">
-  
+  <a href="https://microbadger.com/images/stevenktdev/syslog-ng-node"><img src="https://images.microbadger.com/badges/commit/stevenktdev/syslog-ng-node.svg"></a>
+  <a href="https://microbadger.com/images/stevenktdev/syslog-ng-node"><img src="https://images.microbadger.com/badges/image/stevenktdev/syslog-ng-node.svg"></a>
+  <img src="https://img.shields.io/github/license/stkterry/syslog-ng-node">
 </p>
 
 <span>[<img src="https://img.shields.io/badge/DockerHub-Take%20Me!-brightgreen">](https://hub.docker.com/repository/docker/stevenktdev/syslog-ng-node/general) [<img src="https://img.shields.io/badge/GitHub-Let's%20Go!-brightgreen">](https://github.com/stkterry/syslog-ng-node/)</span>
