@@ -63,7 +63,7 @@ defaults at this location. Look [here](#some-details) for that.
 docker run -d `# start spinning up a container` \
 -p 602:602/tcp `# publish port 602 TCP to the network` \
 -v /var/log/my_logs:/var/log/syslog-ng `# map Logs volume to host at /var/my_logs` \
---name my-log-monitor syslog-ng-node `# set the container name and specify image, profit`
+--name my-log-monitor stevenktdev/syslog-ng-node `# set the container name and specify image, profit`
 ```
 You'll find your logs output to `/var/log/my_logs` on your host machine
 
@@ -73,7 +73,7 @@ version: '3.7'
 services:
   syslog-ng-node:
     container_name: syslog-ng-node
-    image: syslog-ng-node
+    image: stevenktdev/syslog-ng-node
     build: .
     ports:
       - "514:514/udp"

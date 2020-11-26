@@ -2,7 +2,7 @@ version: '3.7'
 services:
   syslog-ng-node:
     container_name: syslog-ng-node
-    image: syslog-ng-node
+    image: stevenktdev/syslog-ng-node
     build: .
     ports:
       - "514:514/udp"
