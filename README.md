@@ -43,7 +43,7 @@ A default config file is included at `/etc/syslog-ng.conf`.
 | 6514 | TCP/TLS |                                     |
 | unix | socket  | `/var/run/syslog-ng/syslog-ng.lock` |
 
-*&nbsp;port 601 maybe be blocked for some users who wish to run syslog-ng on their host or some other service, 602 is used on this app for that reason
+*&nbsp;port 601 may be blocked for some users who wish to run syslog-ng on their host or some other service, 602 is used on this app for that reason
 
 
 ##### Exposed Volumes
