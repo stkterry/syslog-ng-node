@@ -46,6 +46,7 @@ A default config file is included at `/etc/syslog-ng.conf`.
 | Logs   | `/var/log/syslog-ng`   |
 | Socket | `/var/run/syslog-ng`   |
 | Config | `/syslog-ng/config`    |
+
 The *Config* volume is for adding your own config/startup files.  You will not find
 defaults at this location. Look [here](#some-details) for that.
 
