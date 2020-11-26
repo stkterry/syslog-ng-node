@@ -25,7 +25,7 @@ endif
 
 # If we're releasing to Docker Hub, and we're going to mark it with the latest tag, it should exactly match a version release
 ifeq ($(MAKECMDGOALS),release)
-# Use the version number as the release tag.
+	# Use the version number as the release tag.
 DOCKER_TAG = $(CODE_VERSION)
 
 ifndef CODE_VERSION
@@ -45,9 +45,8 @@ endif
 
 else
 # Add the commit ref for development builds. Mark as dirty if the working directory isn't clean
-	DOCKER_TAG = $(CODE_VERSION)-$(GIT_COMMIT)$(DOCKER_TAG_SUFFIX)
+DOCKER_TAG = $(CODE_VERSION)-$(GIT_COMMIT)$(DOCKER_TAG_SUFFIX)
 endif
-
 
 
 docker_build:
