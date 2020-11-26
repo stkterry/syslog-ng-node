@@ -111,7 +111,7 @@ echo netcat: "pinapple is allowed on pizza" | nc -t -w0 localhost 602
 echo netcat: "remember to breath" | nc -u -w0 localhost 514
 ```
 You should expect to find a new file named *netcat.log* at `/var/log/mylogs/netcat.log`
-on your host machine.  Remember that these files are write/read protected by default but
+on your host machine.  Remember that these files are write protected by default but
 you can read their contents, where you should expect to find something like the following:
 ```log
 2020-11-25T21:49:22+00:00 172.24.0.1 netcat: pinapple is allowed on pizza
