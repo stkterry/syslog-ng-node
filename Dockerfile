@@ -9,13 +9,14 @@ ARG BUILD_CORES=4
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+ARG VCS_URL
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="syslog-ng-node" \
     org.label-schema.description="Minimal Syslog-ng build on Node Alpine" \
     org.label-schema.url="https://hub.docker.com/repository/docker/stevenktdev/syslog-ng-node" \
     org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vcs-url="https://github.com/microscaling/microscaling" \
+    org.label-schema.vcs-url=$VCS_URL \
     org.label-schema.version=$VERSION \
     org.label-schema.schema-version="1.0" \
     org.label-schema.docker.cmd="docker run -d -p 514:514/udp -v /var/log/syslog-ng:/var/log/syslog-ng --name syslog-ng syslog-ng-node"
