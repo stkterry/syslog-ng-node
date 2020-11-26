@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  syslog-ng-node:
+    container_name: syslog-ng-node
+    image: syslog-ng-node
+    build: .
+    ports:
+      - "514:514/udp"
+      - "602:602/tcp"
+      - "6514:6514/tcp"
+    volumes:
+      - "./syslog-ng/logs:/var/log/syslog-ng"
+      - "./syslog-ng/socket:/var/run/syslog-ng"
+      - "./syslog-ng/config:/syslog-ng/config"
+      - "./config/startup.sh:/app/startup.sh"
+      - "./config/init:/app/init"
+      - "./config/syslog-ng.conf:/etc/syslog-ng.conf"
+    networks:
+      - network
+
+networks: 
+  network:

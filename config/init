@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -ex
+
+SYS=/syslog-ng/config/syslog-ng.conf
+STA=/syslog-ng/config/startup
+
+if [[ -f "$SYS" ]]; then true | cp $SYS /etc/; fi
+if [[ -f "$STA" ]]; then true | cp $STA /etc/; fi
+
+exec "$@"

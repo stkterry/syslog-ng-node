@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+description="syslog-ng logging service"
+command="/usr/sbin/syslog-ng"
+command_args="-F -f /etc/syslog-ng/syslog-ng.conf"
+pidfile="/run/${RC_SVCNAME}.pid"
+command_background="yes"
+
+depend() {
+        need net
+}
+
