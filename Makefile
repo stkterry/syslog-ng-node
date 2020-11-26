@@ -45,7 +45,7 @@ endif
 
 else
 # Add the commit ref for development builds. Mark as dirty if the working directory isn't clean
-DOCKER_TAG = $(CODE_VERSION)-$(GIT_COMMIT)$(DOCKER_TAG_SUFFIX)
+	DOCKER_TAG = $(CODE_VERSION)-$(GIT_COMMIT)$(DOCKER_TAG_SUFFIX)
 endif
 
 
