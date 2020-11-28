@@ -11,7 +11,7 @@ syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point
   <img src="https://img.shields.io/github/license/stkterry/syslog-ng-node">
 </p>
 
-<span>[<img src="https://img.shields.io/badge/DockerHub-Take%20Me!-brightgreen">](https://hub.docker.com/repository/docker/stevenktdev/syslog-ng-node/general) [<img src="https://img.shields.io/badge/GitHub-Let's%20Go!-brightgreen">](https://github.com/stkterry/syslog-ng-node/)</span>
+<span>[<img src="https://img.shields.io/badge/DockerHub-Take%20Me!-brightgreen">](https://hub.docker.com/r/stevenktdev/syslog-ng-node) [<img src="https://img.shields.io/badge/GitHub-Let's%20Go!-brightgreen">](https://github.com/stkterry/syslog-ng-node/)</span>
 
 
 **At A Glance (Important Bits)** </br>
