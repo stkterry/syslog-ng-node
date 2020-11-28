@@ -19,6 +19,7 @@ syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point
 <span style="font-size:.9em;">[Exposed Volumes](#exposed-volumes)</span> </br>
 <span style="font-size:.9em;">[Basic Use](#basic-use)</span> </br>
 <span style="font-size:.9em;">[Defaults](#some-details)</span> </br>
+<span style="font-size:.9em;">[Syslogger](#syslogger)</span> </br>
 <span style="font-size:.9em;">[Overrides](#config-overrides)</span> </br>
 <span style="font-size:.9em;">[Sanity Checks](#sanity-checks)</span> </br>
 
@@ -62,10 +63,10 @@ defaults at this location. Look [here](#some-details) for that.
 
 ##### Spin up a container that listens on *TCP* and saves logs to the *Logs* volume:
 ```sh
-docker run -d `# start spinning up a container` \
--p 602:602/tcp `# publish port 602 TCP to the network` \
--v /var/log/my_logs:/var/log/syslog-ng `# map Logs volume to host at /var/my_logs` \
---name my-log-monitor stevenktdev/syslog-ng-node `# set the container name and specify image, profit`
+$ docker run -d `# start spinning up a container` \
+  -p 602:602/tcp `# publish port 602 TCP to the network` \
+  -v /var/log/my_logs:/var/log/syslog-ng `# map Logs volume to host at /var/my_logs` \
+  --name my-log-monitor stevenktdev/syslog-ng-node `# set the container name and specify image, profit`
 ```
 You'll find your logs output to `/var/log/my_logs` on your host machine
 
@@ -92,7 +93,19 @@ to `/syslog-ng/config` on the container, with your overrides, as shown in the ex
 The files are ***syslog-ng.conf*** and ***startup.sh***, respectively.
 
 
-
+##### Syslogger
+Included is a simple wrapper script for syslog-ng, which can be called via `syslogger`.
+It makes this implementation a little bit more functional by adding *start*, *stop*, 
+*restart*, *getPID*, etc. You can also pass any syslog-ng options through it.
+```sh
+# Basic Use
+# syslogger {primary-command} {syslog-ng options ...}
+# Examples
+$ syslogger start -F -f /custom.conf # equivalent to 'syslog-ng -F -f /custom.conf'
+$ syslogger stop # stops syslog-ng and prints the PIDs
+$ syslogger getPID # PIDs of the current syslog-ng processes, useful for debugging
+$ syslogger help # list of commands available to syslogger
+```
 
 ##### Some details
 - you can find the default ***startup.sh*** file in `/app/`

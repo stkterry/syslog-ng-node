@@ -4,7 +4,7 @@ default: test
 build: docker_build output
 
 # Build and push Docker image
-release: docker_build docker_push output
+release: docker_build docker_push microbadger_update_hook output
 
 SRC_FILES := $(filter-out syslog-ng, .)
 
@@ -65,6 +65,9 @@ docker_push:
 	# Push to DockerHub
 	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
 	docker push $(DOCKER_IMAGE):latest
+
+microbadger_update_hook:
+	curl -X POST https://hooks.microbadger.com/images/stevenktdev/syslog-ng-node/0ili8sE7pj27FX5Sz_Ouhfe2EnA=
 
 output:
 	@echo Docker Image: $(DOCKER_IMAGE):$(DOCKER_TAG)

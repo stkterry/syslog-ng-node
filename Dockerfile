@@ -47,11 +47,19 @@ RUN apk add --no-cache \
     && apk del --no-cache .build-deps \
     && mkdir -p /var/run/syslog-ng /var/log/syslog-ng /syslog-ng/config
 
+# Copy startup file ...
 COPY /config/startup.sh /config/init /app/
-# Copy conf to default directory
+
+# Copy conf to default directory ...
 COPY /config/syslog-ng.conf /etc/syslog-ng.conf
 
-RUN chmod +x /app/startup.sh
+# Create a syslogger app to ease running the syslog-ng application
+COPY /config/syslogger /usr/bin/syslogger/
+ENV PATH /usr/bin/syslogger:$PATH
+
+RUN chmod +x /app/startup.sh \
+    && chmod +x /usr/bin/syslogger
+
 
 VOLUME ["/var/log/syslog-ng", "/var/run/syslog-ng", "/syslog-ng/config"]
 

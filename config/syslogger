@@ -1,0 +1,88 @@
+#!/bin/sh
+
+function getPID {
+ echo $(pidof syslog-ng)
+}
+
+function start {
+  local pid=$(getPID)
+  if [[ "$pid" ]]; then
+    { echo "syslog-ng is already running with a PID of $pid"; exit; }
+  else
+    echo "Starting syslog-ng ..."
+    /sbin/syslog-ng "$@"
+  fi
+}
+
+function stop {
+  local pid=$(getPID)
+  if ! [[ "$pid" ]]; then
+    { echo "syslog-ng has not been started!"; exit; }
+  else
+    kill $pid;
+    while kill -0 $pid 2> /dev/null; do sleep 1; done;
+    echo "Stopped syslog-ng with PID ${pid}"
+  fi
+
+  
+}
+
+function restart {
+  local pid=$(getPID)
+  if [[ "$pid" ]]; then
+    echo "Restarting syslog-ng ..."
+    stop
+    start "$@"
+    echo "Successfully restarted, syslog-ng now on PID $(getPID)"
+  else
+    { echo "syslog-ng has not been started! Starting now ..."; start "$@"; }
+  fi
+}
+
+function help_text {
+  echo "
+  syslogger options:
+    start   - start up syslog-ng
+    stop    - stop syslog-ng
+    restart - restart syslog-ng, will kill any follow process
+              and shutdown the container if your Docker CMD script 
+              is reliant on it to stay running
+    getPID  - return the associated PIDs of the currently running 
+              syslog-ng processes, useful for debugging
+    help    - display this message
+    --help  - equivalent to 'syslog-ng --help'
+  hint: 
+    you can pass any options for syslog-ng you want through these commands
+  "
+}
+
+command=$1
+shift
+case "$command" in
+
+  start) start "$@"
+  ;;
+
+  stop) stop
+  ;;
+
+  restart) restart "$@"
+  ;;
+
+  getPID) getPID
+  ;;
+
+  help) help_text
+  ;;
+
+  --help) syslog-ng --help
+  ;;
+
+  *) echo "
+    No command found with that name, try 'syslogger help' 
+    for use OR 'syslogger --help' for instructions
+    on syslog-ng itself!
+    "
+  ;;
+
+esac;
