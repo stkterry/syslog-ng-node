@@ -1,6 +1,14 @@
 # syslog-ng-node 
 
-syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point to build a Node/Express application around the syslog-ng logger.
+syslog-ng logger and NodeJS on Alpine.  This image is a jumping off point to build 
+a Node application around the syslog-ng logger.  
+
+You *can* use it as is if you want
+a quick means of capturing loggable sources.  But the agenda was a pre-configured
+logging service on which to build a socket server for real-time data logging/monitoring.
+
+Configuration is minimal but complete, out-of-the-box, as is.  You can pull
+the image and add any extra syslog-ng plugins/libs you need...
 
 <p>
   <img src="https://img.shields.io/docker/v/stevenktdev/syslog-ng-node">
@@ -22,6 +30,7 @@ syslog-ng logger and NodeJS on Alpine.  This image is merely a jumping off point
 <span style="font-size:.9em;">[Syslogger](#syslogger)</span> </br>
 <span style="font-size:.9em;">[Overrides](#config-overrides)</span> </br>
 <span style="font-size:.9em;">[Sanity Checks](#sanity-checks)</span> </br>
+<span style="font-size:.9em;">[Example Use Case](#example-use-case)</span> </br>
 
 
 ##### Application Versions Used
@@ -39,14 +48,20 @@ Writes logs to `/var/log/syslog-ng/$PROGRAM.log`
 A default config file is included at `/etc/syslog-ng.conf`.
 
 ##### Exposed Ports
-| Port | Type    | Note                                |
-|------|---------|-------------------------------------|
-| 514  | UDP     |                                     |
-| 602  | TCP     | *not 601!* :unamused: *see**        |
-| 6514 | TCP/TLS |                                     |
-| unix | socket  | `/var/run/syslog-ng/syslog-ng.lock` |
+| Port     | Type        | Note                                |
+|----------|-------------|-------------------------------------|
+| 514      | UDP         |                                     |
+| 601      | TCP         | *now 601 by default!* :unamused:*   |
+| ~~6514~~ | ~~TCP/TLS~~ | see*                                |
+| unix     | socket      | `/var/run/syslog-ng/syslog-ng.lock` |
 
-*&nbsp;port 601 may be blocked for some users who wish to run syslog-ng on their host or some other service, 602 is used on this app for that reason
+*&nbsp; previous versions used **602/tcp** because of a misidentified configuration issue
+on my part within the ***syslog-ng.conf*** file.  This application now uses the default
+**601/tcp** port!  The previous README.md erroneously stated that this applicaiton 
+had port **6514/tcp** enabled for TLS by default.  This is not the case.  You're
+welcome to expose the port and configure the conf file yourself if you need this
+feature.  Check out the [syslog-ng docs](https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.16/administration-guide/56)
+for info on that.
 
 
 ##### Exposed Volumes
@@ -138,3 +153,50 @@ you can read their contents, where you should expect to find something like the 
 2020-11-25T21:49:22+00:00 172.24.0.1 netcat: pinapple is allowed on pizza
 2020-11-25T21:49:40+00:00 172.24.0.1 netcat: remember to breath
 ```
+
+### Example Use Case
+Here's an example where a user might have one or many Docker containers they'd
+like to implement logging for.  The use case is as follows:
+
+1) You've got one (or more) containers you're going to log
+2) You intend to keep your logger container on the same host
+3) Your destination then is *localhost/127.0.0.1*
+4) You're going to stick with the defaults and use 601/TCP
+
+#### 1) Setting Up the Logger
+Just refer to the [Basic Use](#basic-use) section of the document to spin up your
+***syslog-ng-node*** container!
+
+#### Setting Up What You'd Like To Log
+Let's say you've got an image, *my-cool-image*, here's how you set your log driver
+and log destination/port
+
+Mostly from the [Docker Docs](https://docs.docker.com/config/containers/logging/syslog/):
+```sh
+$ docker run -d `# start spinning up a container` \
+  --log-driver syslog --log-opt syslog-address=tcp://127.0.0.1:601 `# set driver to syslog and address to localhost:601/tcp` \
+  --log-opt tag=my-cool-log `# set a log option to name your log file, refer to Docker docs for more info on this!` \
+  --name my-cool-name my-cool-image `# set the container name and specify image, profit`
+```
+And that's it!  Logs will be dumped to a log file 'my-cool-log.log' in whatever 
+default directory you'd defined when setting up the syslog-ng-node container. You 
+can setup as many containers as you want that way.  Again, refer to the Docker docs 
+for a mess of better configuration options.  
+
+Of course a better option might be to configure the app you want to log via a 
+*docker-compose.yml* file:
+```yaml
+version: '3.7'
+services:
+  my-cool-service:
+    container_name: my-cool-name
+    image: my-cool-image
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:601"
+        tag: "my-cool-log"
+```
+
+You're not limited to logging only Docker containers, needless to say, they're
+just the easiest to demonstrate.

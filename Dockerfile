@@ -63,7 +63,7 @@ RUN chmod +x /app/startup.sh \
 
 VOLUME ["/var/log/syslog-ng", "/var/run/syslog-ng", "/syslog-ng/config"]
 
-EXPOSE 514/udp 602/tcp 6514/tcp
+EXPOSE 514/udp 601/tcp 6514/tcp
 
 ENTRYPOINT [ "/bin/sh", "/app/init" ]
 
