@@ -26,7 +26,7 @@ RUN apk add --no-cache \
     pcre \
     eventlog \
     openssl \
-    multitail \
+    syslog-ng-json \
     && apk add --no-cache --virtual .build-deps \
     curl \
     alpine-sdk \

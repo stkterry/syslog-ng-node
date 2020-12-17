@@ -1,2 +1,4 @@
 
-syslog-ng
+syslog-ng/config/*
+syslog-ng/logs/*
+syslog-ng/socket/*

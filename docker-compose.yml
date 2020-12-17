@@ -14,7 +14,6 @@ services:
       - "./syslog-ng/config:/syslog-ng/config"
       - "./config/startup.sh:/app/startup.sh"
       - "./config/init:/app/init"
-      - "./config/syslog-ng.conf:/etc/syslog-ng.conf"
     networks:
       - network
 
